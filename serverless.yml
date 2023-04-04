@@ -1,0 +1,33 @@
+# https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml#functions
+
+service: nestjs-aws-lambda-function
+
+useDotenv: true
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+
+functions:
+  api:
+    handler: dist/apps/functions/apps/functions/src/main.handlerApi
+    events:
+      - http:
+          method: ANY
+          path: /api
+      - http:
+          method: ANY
+          path: '/api/{proxy+}'
+
+  api-admin:
+    handler: dist/apps/functions/apps/functions/src/main.handlerApiAdmin
+    events:
+      - http:
+          method: ANY
+          path: /api-admin
+      - http:
+          method: ANY
+          path: '/api-admin/{proxy+}'
